@@ -7,7 +7,6 @@ form = environ['mainform']
 
 def getData(id):
     row = requests.get('https://sheetdb.io/api/v1/'+form+'/search?ID='+id).json()
-    print(row)
     if len(row)<1: return "Not Found"
     else: row = row[0]
     data={"name":row["Name"],
