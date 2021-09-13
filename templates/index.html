@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %} BUCC Active Members {% endblock %}
+{% block body %}
+
+
+<div class="align-items-center">
+
+
+{%if result=="Not Found"%}
+<h1 class="display-6"> Information not found in BUCC PR Database </h1>
+<br>
+<a class="btn btn-primary" href="/" role="button">Go Back</a>
+{%endif%}
+{%if result==None%}
+
+<h1 class="display-6"> Please Enter Your ID:
+<br>
+<form action="/" method="POST">
+   <input type="text" class="form-control" name="id" id="id">
+    <input type="submit" class="btn btn-primary" value="Submit">
+</form>
+
+
+
+
+{%endif%}
+{%if result!=None and result!="Not Found"%}
+<div class="container">
+<h1 class="display-3">{{result.name}}</h1>
+<h4 class="display-6">{{result.desig}}</h4>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <td><p class="fw-bold">Student ID</p></td>
+      <td><p class="fw-normal">{{result.id}}</p></td>
+    </tr>
+    <tr>
+      <td><p class="fw-bold">Email</p></td>
+      <td><p class="fw-normal">{{result.email}}</p></td>
+    </tr>
+    <tr>
+      <td><p class="fw-bold">G-Suite</p></td>
+      <td><p class="fw-normal">{{result.gsuite}}</p></td>
+    </tr>
+    {%if result.promoted!=""%}
+    <tr>
+      <td><p class="fw-bold">Promoted</p></td>
+      <td><p class="fw-normal">{{result.promoted}}</p></td>
+    </tr>
+    {%endif%}
+    <tr>
+      <td><p class="fw-bold">Joined</p></td>
+      <td><p class="fw-normal">{{result.joined}}</p></td>
+    </tr>
+    <tr>
+      <td><p class="fw-bold">PR Contribution</p></td>
+      <td><p class="fw-normal">{{result.prcount-1}}</p></td>
+    </tr>
+    <tr>
+      <td><p class="fw-bold">Publications</p></td>
+      <td><p class="fw-normal">{{result.pr}}</p></td>
+    </tr>
+    <tr>
+      <td><p class="fw-bold">Blogs</p></td>
+      <td><p class="fw-normal">{{result.blogs}}</p></td>
+    </tr>
+    <tr>
+      <td><p class="fw-bold">Magazine Articles</p></td>
+      <td><p class="fw-normal">{{result.mag}}</p></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="table">
+<div class='row justify-content-center'>
+    <h1 class="display-5"> Meeting Attendence</h2>
+</div>
+  <tbody>
+    {%for i in result.meetings[0]%}
+    <tr>
+      <td><p class="fw-normal">{{i[0][:-12]}}</p></td>
+      <td><p class="fw-normal">{{i[1]}}</p></td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+<p class="fw-normal">Percentage: {{result.meetings[1]}}%</p>
+<br>
+<a class="btn btn-primary" href="/" role="button">Go Back</a>
+</div>
+<br>
+
+{%endif%}
+
+</div>
+
+{% endblock %}
